@@ -1,47 +1,60 @@
 from dash import Dash, html, dcc, callback, Output, Input
 import plotly.express as px
 import pandas as pd
-app = Dash()
+import dash_bootstrap_components as dbc
+from dash import dcc, html, dash_table
+
+
 import datetime as dt
 from datetime import date
 from modules import *
 import yfinance as yf
 
+app = Dash(
+        external_stylesheets=[dbc.themes.BOOTSTRAP]
 
-
-df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder_unfiltered.csv')
-
-def prova(param):
-    df = pd.DataFrame(columns=["prova"])
-    df["prova"] = [0,1,2,3]
     
-    figure = px.scatter(df, title=param)
-    return figure
+)
+
+asset_list = ["TSLA", "AAPL"]
+leverage_range = [i/10 for i in range(0,110)]
 
 
-app.layout = [
-    html.H1(children='LEVERAGE SIMULATOR', style={'textAlign':'center'}),
-    html.H3("Please enter your asset, starting ending date, leverage ratio"),
-    
-    dcc.Input(id="ticker", type="text",  debounce=True, value = "TSLA"),
-    
-    dcc.Input(id="leverage-ratio", type="number", min=0, max= 10, value = 2),
-    
-    dcc.DatePickerRange(
+title = html.H1(children='LEVERAGE SIMULATOR', style={'textAlign':'center'})
+asset_dropdown =  dcc.Dropdown(asset_list, "TSLA", id="ticker")
+leverage_dropdown = dcc.Dropdown(leverage_range, 2, id="leverage-ratio")
+
+
+
+date_range_picker = dcc.DatePickerRange(
         id='date-range',
         min_date_allowed=date(1995, 8, 5),
+        max_date_allowed= dt.datetime.today(),
         start_date=date(2020, 8, 5),
-        end_date=date(2023, 8, 25)
-    ),
+        end_date=dt.date.today(),
+    )
 
+default_df = pd.DataFrame(columns=[1,2,3])
+default_df[1] = "prova"
+
+app.layout = [
+    
+    #HEADER
+    html.Div(title),
+    html.Div(children = [asset_dropdown,leverage_dropdown,date_range_picker]),
+
+    
     dcc.Graph(id ="graph", figure=False),
-    html.Div(id = "prova", children = "")
+    html.Div(id = "prova", children = ""),
+
+    #dash_table.DataTable(data = default_df.to_dict(), columns = [{"name": i, "id": i} for i in default_df.columns], id= "table")
 ]
 
 
 
 @callback(
     Output('graph', 'figure'),
+    #Output("table", "data"),
     Input("ticker", "value"),
     Input("leverage-ratio", "value"),
     Input("date-range",  "start_date"),
@@ -50,6 +63,12 @@ app.layout = [
 def update_graph(ticker, leverage_ratio, start_date, end_date):
     
     data = apply_leverage(ticker, start_date, end_date, leverage_ratio)
+    results_df = pd.DataFrame(columns = ["ROI", "CAGR", "SHARPE RATIO", "VOLATILITY", "MAX DROWDON"])
+    
+    results_df["ROI"] = [roi(data["price"]), roi(data["lev_price"])]
+    results_df["CAGR"] = [ cagr(data["price"]), cagr(data["lev_price"])]
+    results_df["VOLATILITY"] = [volatility(data["price"]), volatility(data["lev_price"])]
+    
     
     figure = px.line(data)
     
