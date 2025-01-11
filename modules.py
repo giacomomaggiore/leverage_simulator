@@ -30,10 +30,17 @@ def apply_leverage(ticker, start, end, leverage_ratio):
 
 
 def roi(df):
-  return (df.iloc[-1] - df.iloc[0]) / df.iloc[0]*100
+  roi = (df.iloc[-1] - df.iloc[0]) / df.iloc[0]*100
+  roi = '%.3f'%(roi)
+  roi = float(roi)
+  return roi
+  
 
 def cagr(df):
-  return ((df.iloc[-1] / df.iloc[0]) ** (1 / (len(df) / 252)) - 1)*100
+  cagr =  ((df.iloc[-1] / df.iloc[0]) ** (1 / (len(df) / 252)) - 1)*100
+  cagr = '%.3f'%(cagr)
+  cagr = float(cagr)
+  return cagr
 
 def sharpe_ratio(df, risk_free):
   average_return = float(df.pct_change(fill_method=None).mean()) * 252
@@ -48,4 +55,19 @@ def sharpe_ratio(df, risk_free):
   return sharpe_ratio
 
 def volatility(df):
-  return df.pct_change(fill_method=None).std() * np.sqrt(252)
+  volatility = df.pct_change(fill_method=None).std() * np.sqrt(252)
+  volatility = '%.3f'%(volatility)
+  volatility = float(volatility)
+  return volatility
+
+
+def max_drawdown(df):
+    returns = df.pct_change().dropna()
+    cumulative_returns = (1 + returns).cumprod()
+    running_max = cumulative_returns.cummax()
+    drawdown = (cumulative_returns - running_max) / running_max
+    max_drawdown = drawdown.min()
+    
+    max_drawdown = '%.3f'%(max_drawdown)
+    max_drawdown = float(max_drawdown)
+    return max_drawdown

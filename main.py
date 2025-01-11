@@ -17,7 +17,7 @@ app = Dash(
 
 asset_list = ["TSLA", "AAPL"]
 leverage_range = [i/10 for i in range(0,110)]
-
+risk_free = 0.02
 
 title = html.H1(children='LEVERAG E SIMULATOR', style={'textAlign':'center'})
 asset_dropdown =  dcc.Dropdown(asset_list, "TSLA", id="ticker")
@@ -33,7 +33,7 @@ date_range_picker = dcc.DatePickerRange(
         end_date=dt.date.today(),
     )
 
-default_df = pd.DataFrame(columns=["ROI", "CAGR", "SHARPE RATIO", "VOLATILITY", "MAX DROWDON"])
+default_df = pd.DataFrame(columns=["ROI", "CAGR", "SHARPE RATIO", "VOLATILITY", "MAX DRAWDON"])
 
 app.layout = [
     
@@ -60,10 +60,13 @@ app.layout = [
 def update_graph(ticker, leverage_ratio, start_date, end_date):
     
     data = apply_leverage(ticker, start_date, end_date, leverage_ratio)
-    results_df = pd.DataFrame(columns = ["ROI", "CAGR", "SHARPE RATIO", "VOLATILITY", "MAX DROWDON"])
+    results_df = pd.DataFrame(columns = ["","ROI", "CAGR", "SHARPE RATIO", "VOLATILITY", "MAX DRAWDOWN"])
+    results_df[""] = [ticker, ticker +  " " +str(leverage_ratio)+"x"]
     results_df["ROI"] = [roi(data["price"]), roi(data["lev_price"])]
     results_df["CAGR"] = [ cagr(data["price"]), cagr(data["lev_price"])]
     results_df["VOLATILITY"] = [volatility(data["price"]), volatility(data["lev_price"])]
+    results_df["SHARPE RATIO"] = [sharpe_ratio(data["price"], risk_free), sharpe_ratio(data["lev_price"], risk_free)]
+    results_df["MAX DRAWDOWN"] = [max_drawdown(data["price"]), max_drawdown(data["lev_price"])]
     
     results_df = results_df.to_dict("records")
     print(results_df)
