@@ -1,0 +1,46 @@
+:root{
+    --larghetta-input: 30%;
+    --altezza-input: 10vh;
+}
+
+
+
+.header{
+    background-color: yellow;
+}
+
+
+#input-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#ticker{
+    width: var(--larghetta-input);
+    height: var(--altezza-input)
+}
+
+#leverage-ratio{
+    width: var(--larghetta-input);
+    height: var(--altezza-input);
+}
+
+#date-range{
+    width: var(--larghetta-input);
+    height: var(--altezza-input);
+
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+}
+
+.content-left{
+    width: 70%;
+}
+
+.content-right{
+    width: 20%;
+}
