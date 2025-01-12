@@ -28,10 +28,11 @@ title = html.H1(children='LEVERAG E SIMULATOR', style={'textAlign':'center'})
 subtitle = html.H4(children="Leverage is like hot sauce—just a little can spice things up, but too much will burn everything down.")
 
 
-asset_dropdown =  dcc.Dropdown(asset_list, "TSLA", id="ticker")
-leverage_dropdown = dcc.Dropdown(leverage_range, 2, id="leverage-ratio")
+asset_dropdown =  dcc.Dropdown(asset_list, "TSLA", id="ticker", className="ticker")
+leverage_dropdown = dcc.Dropdown(leverage_range, 2, id="leverage-ratio", className="leverage-ratio")
 date_range_picker = dcc.DatePickerRange(
         id='date-range',
+        className = "date-range",
         min_date_allowed=date(1995, 8, 5),
         max_date_allowed= dt.datetime.today(),
         start_date=date(2020, 8, 5),
@@ -41,7 +42,8 @@ date_range_picker = dcc.DatePickerRange(
 table_results = dash_table.DataTable(data = default_df.to_dict("records"), id = "table"),
 
 
-input_div = html.Div(id = "input-div", children = [asset_dropdown, leverage_dropdown,date_range_picker])
+input_div = html.Div(id = "input-div", children = [asset_dropdown, leverage_dropdown,    date_range_picker,
+])
 
 
 
@@ -54,17 +56,19 @@ app.layout = [
             ],
              className = "header"),
     
-    input_div,
+    
     html.Div(className="content", children = [
         
+    input_div,
+        
     html.Div(
-        className = "content-left",
+        className = "content-graph",
         children = [
                     dcc.Graph(id ="graph", figure=False)]
              
              
              ),
-    html.Div(className = "content-right",
+    html.Div(className = "content-table",
              children = table_results
              )])
 

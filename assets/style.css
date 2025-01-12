@@ -1,6 +1,5 @@
 :root{
-    --larghetta-input: 30%;
-    --altezza-input: 10vh;
+    --altezza-input: 5vh;
 }
 
 
@@ -11,36 +10,42 @@
 
 
 #input-div{
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-#ticker{
-    width: var(--larghetta-input);
-    height: var(--altezza-input)
-}
 
-#leverage-ratio{
-    width: var(--larghetta-input);
-    height: var(--altezza-input);
-}
-
-#date-range{
-    width: var(--larghetta-input);
-    height: var(--altezza-input);
-
-}
 
 .content{
-    display: flex;
-    flex-direction: row;
+    background-color: lightblue;
+    padding-left: 20%;
+    padding-right: 20%;
 }
 
-.content-left{
-    width: 70%;
+.content-graph{
+    border: 1px solid red;
 }
 
-.content-right{
-    width: 20%;
+.content-table{
+    border: 1px solid black;
+}
+
+.DateInput_input{
+    height: var(--altezza-input);
+}
+
+
+.dash-dropdown{
+    width: 30vh;
+}
+
+.date-range{
+    width: auto;
+    
+}
+
+.DateInput_input{
+    font-size: 25px;
 }
