@@ -43,7 +43,7 @@ table_results = dash_table.DataTable(data = default_df.to_dict("records"), id = 
 
 
 input_div = html.Div(id = "input-div", children = [asset_dropdown, leverage_dropdown,    date_range_picker,
-])
+ ])
 
 
 

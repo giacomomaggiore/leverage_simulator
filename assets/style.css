@@ -1,8 +1,12 @@
 :root{
     --altezza-input: 5vh;
+    --font-size-form: 1.4vw;
 }
 
-
+*{
+    padding: 0;
+    margin: 0;
+}
 
 .header{
     background-color: yellow;
@@ -13,10 +17,8 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
-
-
 
 .content{
     background-color: lightblue;
@@ -32,20 +34,31 @@
     border: 1px solid black;
 }
 
-.DateInput_input{
-    height: var(--altezza-input);
-}
-
-
 .dash-dropdown{
-    width: 30vh;
+    font-size: var(--font-size-form);
+    height: var(--altezza-input);
+    width: 10vw;
 }
 
-.date-range{
-    width: auto;
-    
+.ticker .Select-control{
+    height: var(--altezza-input);
+    border-radius: 0;
 }
+.leverage-ratio .Select-control{
+    height: var(--altezza-input);
+    border-radius: 0;
+}
+
+
+
 
 .DateInput_input{
-    font-size: 25px;
+    font-size: var(--font-size-form);
+    height: var(--altezza-input);
+    border: 0;
+}
+
+.DateRangePickerInput__withBorder{
+    border: 0;
+    border-radius: 0;
 }
