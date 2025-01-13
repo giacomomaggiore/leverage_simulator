@@ -4,3 +4,4 @@ numpy
 datetime
 dash
 plotly
+gunicorn
