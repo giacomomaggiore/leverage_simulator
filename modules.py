@@ -9,7 +9,7 @@ end= "2022-01-01"
 def get_data(ticker, start, end):
     df = yf.download(ticker, start, end)
     data = pd.DataFrame(index = df.index)
-    data["price"] = df["Adj Close"]
+    data["price"] = df["Close"]
     
     return data
 
