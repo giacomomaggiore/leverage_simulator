@@ -1,7 +1,6 @@
 from dash import Dash, html, dcc, callback, Output, Input, dash_table
 import plotly.express as px
 import pandas as pd
-import dash_bootstrap_components as dbc
 from asset_list import asset_list
 
 import datetime as dt
@@ -9,9 +8,7 @@ from datetime import date
 from modules import *
 import yfinance as yf
 
-app = Dash(
-        external_stylesheetsπ=[dbc.themes.FLATLY])
-
+app = Dash()
 server = app.server
 
 
