@@ -10,11 +10,9 @@ from modules import *
 import yfinance as yf
 
 app = Dash(
-        external_stylesheets=[dbc.themes.FLATLY]
+        external_stylesheetsπ=[dbc.themes.FLATLY])
 
-    
-)
-
+server = app.server
 
 
 
