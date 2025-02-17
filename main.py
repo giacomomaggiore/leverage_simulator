@@ -18,7 +18,7 @@ risk_free = 0.02
 default_df = pd.DataFrame(index=["ROI", "CAGR", "SHARPE RATIO", "VOLATILITY", "MAX DRAWDON"])
 
 
-title = html.H1(children='LEVERAGE SIMULATOR', style={'textAlign':'center'})
+title = html.H1(children='DAILY xwLEVERAGE SIMULATOR', style={'textAlign':'center'})
 
 subtitle = html.H4(children="Leverage is like hot sauce—just a little can spice things up, but too much will burn everything down.")
 
